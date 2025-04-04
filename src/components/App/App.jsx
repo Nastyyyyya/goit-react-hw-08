@@ -23,6 +23,8 @@ import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
 import LoginPage from "../../pages/LoginPage/LoginPage";
 import ContactsPage from "../../pages/ContactsPage";
 
+import { Toaster } from "react-hot-toast";
+
 const App = () => {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
@@ -43,6 +45,7 @@ const App = () => {
   ) : (
     <div className={style.container}>
       <Router>
+        <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />

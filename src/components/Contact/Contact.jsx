@@ -3,6 +3,15 @@ import { IoPersonSharp } from "react-icons/io5";
 import { BsFillTelephoneFill } from "react-icons/bs";
 
 const Contact = ({ name, number, onDelete }) => {
+  const handleDelete = () => {
+    const confirmDelete = window.confirm(
+      `Are you sure that you want to delete contact "${name}"?`
+    );
+    if (confirmDelete) {
+      onDelete();
+    }
+  };
+
   return (
     <li className={styles.contactItem}>
       <div className={styles.contactDetails}>
@@ -15,7 +24,7 @@ const Contact = ({ name, number, onDelete }) => {
           {number}
         </p>
       </div>
-      <button onClick={onDelete}>Delete</button>
+      <button onClick={handleDelete}>Delete</button>
     </li>
   );
 };
