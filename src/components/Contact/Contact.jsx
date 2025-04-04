@@ -28,8 +28,14 @@ const Contact = ({ id, name, number, onDelete, onEdit }) => {
           {number}
         </p>
       </div>
-      <button onClick={handleDelete}>Delete</button>
-      <button onClick={handleEdit}>Edit</button>
+      <div className={styles.bothButtons}>
+        <button className={styles.buttons} onClick={handleDelete}>
+          Delete
+        </button>
+        <button className={styles.buttons} onClick={handleEdit}>
+          Edit
+        </button>
+      </div>
     </li>
   );
 };
