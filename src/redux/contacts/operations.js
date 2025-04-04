@@ -16,7 +16,7 @@ export const fetchContacts = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      toast.error("Can`t load contacts");
+      toast.error("Can't load contacts");
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -55,6 +55,28 @@ export const deleteContact = createAsyncThunk(
       return contactId;
     } catch (error) {
       toast.error("Error deleting contact");
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateContact = createAsyncThunk(
+  "contacts/updateContact",
+  async ({ id, name, number }, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.patch(
+        `/contacts/${id}`,
+        { name, number },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error updating contact:", error.response?.data);
       return thunkAPI.rejectWithValue(error.message);
     }
   }

@@ -2,7 +2,7 @@ import styles from "./Contact.module.css";
 import { IoPersonSharp } from "react-icons/io5";
 import { BsFillTelephoneFill } from "react-icons/bs";
 
-const Contact = ({ name, number, onDelete }) => {
+const Contact = ({ id, name, number, onDelete, onEdit }) => {
   const handleDelete = () => {
     const confirmDelete = window.confirm(
       `Are you sure that you want to delete contact "${name}"?`
@@ -10,6 +10,10 @@ const Contact = ({ name, number, onDelete }) => {
     if (confirmDelete) {
       onDelete();
     }
+  };
+
+  const handleEdit = () => {
+    onEdit(id);
   };
 
   return (
@@ -25,6 +29,7 @@ const Contact = ({ name, number, onDelete }) => {
         </p>
       </div>
       <button onClick={handleDelete}>Delete</button>
+      <button onClick={handleEdit}>Edit</button>
     </li>
   );
 };

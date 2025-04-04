@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchContacts, addContact, deleteContact } from "./operations";
+import {
+  fetchContacts,
+  addContact,
+  deleteContact,
+  updateContact,
+} from "./operations";
 import { createSelector } from "reselect";
 import { selectNameFilter } from "../filters/slice";
 import { selectContacts } from "./selectors";
@@ -33,6 +38,12 @@ const contactsSlice = createSlice({
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.items = state.items.filter(
           (contact) => contact.id !== action.payload
+        );
+      })
+      .addCase(updateContact.fulfilled, (state, action) => {
+        const updatedContact = action.payload;
+        state.items = state.items.map((contact) =>
+          contact.id === updatedContact.id ? updatedContact : contact
         );
       });
   },
