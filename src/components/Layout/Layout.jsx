@@ -1,42 +1,14 @@
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "../../redux/auth/selectors";
-import UserMenu from "../UserMenu/UserMenu";
+import AppBar from "../AppBar/AppBar";
+import { Outlet } from "react-router-dom";
 
-const Layout = ({ children }) => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-
+const Layout = () => {
   return (
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          {!isLoggedIn ? (
-            <>
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
-              <li>
-                <Link to="/login">Log In</Link>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <Link to="/contacts">Contacts</Link>
-              </li>
-              <li>
-                <UserMenu></UserMenu>
-              </li>
-            </>
-          )}
-        </ul>
-      </nav>
-
-      <main>{children}</main>
-    </div>
+    <>
+      <AppBar />
+      <main>
+        <Outlet />
+      </main>
+    </>
   );
 };
 

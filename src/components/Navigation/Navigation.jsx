@@ -1,44 +1,35 @@
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
-import { logout } from "../../redux/auth/operations";
-import UserMenu from "../UserMenu/UserMenu";
+import style from "./Navigation.module.css";
 
 const Navigation = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    dispatch(logout());
-  };
 
   return (
-    <nav>
-      <ul>
+    <nav className={style.nav}>
+      <ul className={style.ulNav}>
         <li>
-          <Link to="/">Home</Link>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? style.activeLink : undefined
+            }
+          >
+            Home
+          </NavLink>
         </li>
-        {!isLoggedIn ? (
-          <>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-            <li>
-              <Link to="/login">Log In</Link>
-            </li>
-          </>
-        ) : (
-          <>
-            <li>
-              <Link to="/contacts">Contacts</Link>
-            </li>
-            <li>
-              <UserMenu></UserMenu>
-            </li>
-            <li>
-              <button onClick={handleLogout}>Log Out</button>
-            </li>
-          </>
+        {isLoggedIn && (
+          <li>
+            <NavLink
+              to="/contacts"
+              className={({ isActive }) =>
+                isActive ? style.activeLink : undefined
+              }
+            >
+              Contacts
+            </NavLink>
+          </li>
         )}
       </ul>
     </nav>
