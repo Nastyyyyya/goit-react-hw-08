@@ -8,7 +8,8 @@ export const fetchContacts = createAsyncThunk(
   "contacts/fetchAll",
   async (_, thunkAPI) => {
     try {
-      const token = localStorage.getItem("token");
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
       const response = await axios.get("/contacts", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -26,7 +27,8 @@ export const addContact = createAsyncThunk(
   "contacts/addContact",
   async (contactData, thunkAPI) => {
     try {
-      const token = localStorage.getItem("token");
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
       const response = await axios.post("/contacts", contactData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -45,7 +47,8 @@ export const deleteContact = createAsyncThunk(
   "contacts/deleteContact",
   async (contactId, thunkAPI) => {
     try {
-      const token = localStorage.getItem("token");
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
       await axios.delete(`/contacts/${contactId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -64,7 +67,8 @@ export const updateContact = createAsyncThunk(
   "contacts/updateContact",
   async ({ id, name, number }, thunkAPI) => {
     try {
-      const token = localStorage.getItem("token");
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
       const response = await axios.patch(
         `/contacts/${id}`,
         { name, number },
@@ -74,9 +78,10 @@ export const updateContact = createAsyncThunk(
           },
         }
       );
+      toast.success("Contact was updated!");
       return response.data;
     } catch (error) {
-      console.error("Error updating contact:", error.response?.data);
+      toast.error("Error updating contact");
       return thunkAPI.rejectWithValue(error.message);
     }
   }

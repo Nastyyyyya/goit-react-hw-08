@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
@@ -44,30 +43,28 @@ const App = () => {
     <p>Refreshing user...</p>
   ) : (
     <div className={style.container}>
-      <Router>
-        <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route
-              path="register"
-              element={<RestrictedRoute component={<RegistrationPage />} />}
-            />
-            <Route
-              path="login"
-              element={isLoggedIn ? <Navigate to="/contacts" /> : <LoginPage />}
-            />
-            <Route
-              path="contacts"
-              element={<PrivateRoute component={<ContactsPage />} />}
-            />
-            <Route
-              path="*"
-              element={<Navigate to={isLoggedIn ? "/contacts" : "/login"} />}
-            />
-          </Route>
-        </Routes>
-      </Router>
+      <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route
+            path="register"
+            element={<RestrictedRoute component={<RegistrationPage />} />}
+          />
+          <Route
+            path="login"
+            element={isLoggedIn ? <Navigate to="/contacts" /> : <LoginPage />}
+          />
+          <Route
+            path="contacts"
+            element={<PrivateRoute component={<ContactsPage />} />}
+          />
+          <Route
+            path="*"
+            element={<Navigate to={isLoggedIn ? "/contacts" : "/login"} />}
+          />
+        </Route>
+      </Routes>
     </div>
   );
 };

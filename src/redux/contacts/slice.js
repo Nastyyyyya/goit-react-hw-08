@@ -5,9 +5,6 @@ import {
   deleteContact,
   updateContact,
 } from "./operations";
-import { createSelector } from "reselect";
-import { selectNameFilter } from "../filters/slice";
-import { selectContacts } from "./selectors";
 
 const initialState = {
   items: [],
@@ -48,17 +45,5 @@ const contactsSlice = createSlice({
       });
   },
 });
-
-export const selectFilteredContacts = createSelector(
-  [selectContacts, selectNameFilter],
-  (contacts, filter) => {
-    const lowerCaseFilter = filter.toLowerCase();
-    return contacts.filter(
-      (contact) =>
-        contact.name.toLowerCase().includes(lowerCaseFilter) ||
-        contact.number.toLowerCase().includes(lowerCaseFilter)
-    );
-  }
-);
 
 export default contactsSlice.reducer;
